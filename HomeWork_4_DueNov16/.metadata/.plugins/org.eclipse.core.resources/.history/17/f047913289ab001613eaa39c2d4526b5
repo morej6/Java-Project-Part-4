@@ -1,0 +1,155 @@
+package Moreno.bcs345.hwk.purchases.business;
+
+import java.io.PrintStream;
+import java.util.Scanner;
+
+public class PurchaseCollection  {
+	
+	private Customer Customer;
+	private int size;
+	private Purchase[] Purchase;
+	
+	public PurchaseCollection()
+	{
+		Customer = new Customer();
+		size = 0;
+		Purchase = new Purchase[size];
+		for (int i = 0; i <Purchase.length; i++)
+		{
+			Purchase[i] = new Purchase();
+			
+		}
+		
+	}
+	
+	public void SetCustomer(Customer c)
+	{
+		Customer = c;
+	}
+	
+	public Customer GetCustomer()
+	{
+		
+		return Customer;
+	}
+	
+	public Purchase GetMaxPurchase()
+	{
+		int max = 0;
+		
+		for (int i = 0; i <Purchase.length; i++)
+		{
+			if( Purchase[i].GetProduct().GetPrice() * Purchase[i].Getquantity() > Purchase[max].GetProduct().GetPrice() * Purchase[max].Getquantity())
+			{
+				max =i;
+			}	
+			
+		}
+		
+		if(Purchase == null)
+		{
+			return null;
+		}
+		else 
+		{
+			return Purchase[max];
+		}
+		
+	
+	}
+	
+	public Purchase GetByIndex(int index)
+	{	
+	
+		return Purchase[index-1];
+	}
+	
+	public void Report(PrintStream ps)
+	{
+		double cost =0;
+		double totalQ = 0; 
+		double totalC = 0;
+		ps.printf("Purchase Report\n");
+		ps.printf("---------------\n");
+		ps.println(Customer.GetfirstName() +" " +Customer.GetlastName());
+		ps.println(Customer.GetAddress().Getnumber()+" "+Customer.GetAddress().Getstreet());
+		ps.println(Customer.GetAddress().Getstate()+", "+Customer.GetAddress().Getcity()+" "+Customer.GetAddress().Getzip());
+		ps.println();
+		String D = "Description", P= "Price",Q= "Quantity", C= "Cost";
+		String filler = "-----------";
+		ps.printf("%-30s %12s %10s %12s\n", D, P, Q, C);
+		ps.printf("%-30s %12s %10s %12s\n", filler, filler, filler, filler);
+		for (int i =0; i <Purchase.length; i++)
+		{
+			cost = Purchase[i].GetProduct().GetPrice() * Purchase[i].Getquantity();
+			totalQ = Purchase[i].Getquantity() + totalQ;
+			totalC = cost + totalC; 
+			ps.printf("%-30s %12s %10d %12s\n",Purchase[i].GetProduct().GetDescription(), Purchase[i].GetProduct().GetPrice() ,Purchase[i].Getquantity(), cost);
+		}	
+		ps.printf("%-30s %12s %10s %12s\n", filler, filler, filler, filler);
+		ps.printf("Total %48.0f %12.2f\n", totalQ, totalC);
+
+		
+	}
+	
+	public void Write(PrintStream ps)
+	{
+		
+		Customer.write(ps);
+		ps.println(size);
+		for (int i =0; i <Purchase.length; i++)
+		{
+			Purchase[i].Write(ps);	
+			
+		}	
+		
+	}
+	
+	public void Read(Scanner s)
+	{
+		Customer.Read(s);
+		size = s.nextInt();
+		s.nextLine();
+		Purchase = new Purchase[size];
+		
+		for (int i =0; i <Purchase.length; i++)
+		{
+			Purchase[i] = new Purchase();
+			Purchase[i].Read(s);	
+			
+		}
+		
+	}
+	
+	public String GetJSON()
+	{
+		String s;
+		s = "";
+		s+= "{\n" + "\"" +  "Number" + "\"" + " : ";
+		s += Customer.GetJSON();
+		for (int i =0; i <Purchase.length; i++)
+		{
+			s += Purchase[i].GetJSON();	
+		}
+		return s;
+		
+	}
+	
+	@Override
+	public String toString()
+	{
+		String s;
+		s = "";
+		s += Customer.toString();
+		
+		for (int i =0; i <Purchase.length; i++)
+		{
+			s += Purchase[i].toString();	
+		}
+		
+		return s;
+		
+	}
+
+	
+}

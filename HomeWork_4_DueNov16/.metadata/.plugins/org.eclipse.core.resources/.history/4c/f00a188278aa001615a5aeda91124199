@@ -1,0 +1,59 @@
+package Moreno.bcs345.hwk.purchases.presentation;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.Scanner;
+
+import Moreno.bcs345.hwk.purchases.business.PurchaseCollection;
+
+/**
+ * Calls a instance of CustomerPurchaseConsoleUI to show menu
+ * 
+ * @author Juan Moreno
+ * @version 1.1
+ * @since 10/23/16
+ */
+public class Driver {
+
+	/**
+	 * Main is where the code is run.
+	 * @param args contains the command-line arguments
+	 */
+	public static void main(String[] args) {
+		//Declaring an instance of CustomerPurchaseConsoleUI
+		CustomerPurchaseConsoleUI a = new CustomerPurchaseConsoleUI();
+		a.ShowUI();	//Calling ShowUI which contains menu
+		
+		/*
+		PurchaseCollection a = new PurchaseCollection();
+		Scanner file1 = null;
+		try {
+			file1 = new Scanner(new File("Customer.txt"));
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		a.Read(file1);
+		//a.GetMaxPurchase();
+		
+		
+		PrintStream ps2 = null;
+		PrintStream ps = null; //PrinStream is used to print a text file.
+		try {
+			ps2 = new PrintStream(System.out);
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		//a.Write(ps);
+		//a.GetByIndex(2);
+		//System.out.print(a.GetByIndex(1));
+		//a.Report(ps2);
+		//System.out.print(a.GetMaxPurchase());
+		System.out.print(a.GetJSON());
+		*/
+	}
+
+}
